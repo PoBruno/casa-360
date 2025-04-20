@@ -1,0 +1,22 @@
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: casa360_db
+    environment:
+      POSTGRES_USER: casa360
+      POSTGRES_PASSWORD: casa360
+      POSTGRES_DB: casa360
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - casa360_network
+
+volumes:
+  postgres_data:
+
+networks:
+  casa360_network:
+    driver: bridge 
